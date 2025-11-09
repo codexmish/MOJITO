@@ -1,8 +1,25 @@
 import React from "react";
 import leftLeaf from "../../public/images/hero-left-leaf.png";
 import rightLeaf from "../../public/images/hero-right-leaf.png";
+import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/all";
+import gsap from "gsap";
 
 const Hero = () => {
+  useGSAP(() => {
+    const heroSplit = new SplitText(".title", { type: "chars, words" });
+    const paraSplit = new SplitText(".subtitle", { type: "lines" });
+
+    heroSplit.chars.forEach((item) => item.classList.add("text-gradient"));
+
+    gsap.from(heroSplit.chars, {
+      y: "100%",
+      duration: 1.8,
+      ease: "expo-out",
+      stagger: 0.06,
+    });
+  }, []);
+
   return (
     <>
       <section id="hero" className="noisy">
